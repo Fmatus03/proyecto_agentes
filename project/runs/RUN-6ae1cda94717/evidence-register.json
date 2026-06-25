@@ -1,0 +1,94 @@
+{
+  "records": [
+    {
+      "chunk_id": "SRC-DOC-004.chunk.008",
+      "claim_supported": "coincidencia keyword deterministica con query y policy",
+      "evidence_id": "EV-001",
+      "hash": "sha256:9a5a7c2481aef008c39b8cffcfc1195cda2c7db6b566f2310e132c70755a8c30",
+      "path": "04_Orquestador_Ciclo_12_Pasos_Operabilidad.md",
+      "source_id": "SRC-DOC-004",
+      "trust": "trusted"
+    },
+    {
+      "chunk_id": "SRC-DOC-002.chunk.007",
+      "claim_supported": "coincidencia keyword deterministica con query y policy",
+      "evidence_id": "EV-002",
+      "hash": "sha256:2b27f9093839b0f4380177673317b3c99678ab5487fef9ed5621fd676123ba66",
+      "path": "02_Arquitectura_Stack_y_Flujos_SDD.md",
+      "source_id": "SRC-DOC-002",
+      "trust": "trusted"
+    },
+    {
+      "chunk_id": "SRC-DOC-004.chunk.006",
+      "claim_supported": "coincidencia keyword deterministica con query y policy",
+      "evidence_id": "EV-003",
+      "hash": "sha256:82ea1d07158a2b0131f179b305a39d117630e8e6b66cff69497a5adcf01ef8bd",
+      "path": "04_Orquestador_Ciclo_12_Pasos_Operabilidad.md",
+      "source_id": "SRC-DOC-004",
+      "trust": "trusted"
+    },
+    {
+      "chunk_id": "SRC-DOC-004.chunk.007",
+      "claim_supported": "coincidencia keyword deterministica con query y policy",
+      "evidence_id": "EV-004",
+      "hash": "sha256:e19c36c7e6e4e101e543fae47f3602821e7c955cd0cec4be6f0732ef187e6fce",
+      "path": "04_Orquestador_Ciclo_12_Pasos_Operabilidad.md",
+      "source_id": "SRC-DOC-004",
+      "trust": "trusted"
+    },
+    {
+      "chunk_id": "SRC-DOC-005.chunk.009",
+      "claim_supported": "coincidencia keyword deterministica con query y policy",
+      "evidence_id": "EV-005",
+      "hash": "sha256:b29b6c06e6a0249dc7a3987c0d9c27a1e28cfd6a370b27830f5f3ffd3b67d7d6",
+      "path": "arnes.md",
+      "source_id": "SRC-DOC-005",
+      "trust": "trusted"
+    },
+    {
+      "chunk_id": "SRC-DOC-007.chunk.006",
+      "claim_supported": "coincidencia keyword deterministica con query y policy",
+      "evidence_id": "EV-006",
+      "hash": "sha256:0478133886eaafc57aea64ad4f4c5213ea240f33d0f1303fdfc71bfc2da1bb07",
+      "path": "CHECKLIST.md",
+      "source_id": "SRC-DOC-007",
+      "trust": "trusted"
+    },
+    {
+      "chunk_id": "SRC-DOC-007.chunk.007",
+      "claim_supported": "coincidencia keyword deterministica con query y policy",
+      "evidence_id": "EV-007",
+      "hash": "sha256:cc85bc42bf67f38e0921f74d68253610326a27c0a159c38c2ab2beb2274e4b75",
+      "path": "CHECKLIST.md",
+      "source_id": "SRC-DOC-007",
+      "trust": "trusted"
+    },
+    {
+      "chunk_id": "SRC-DOC-001.chunk.003",
+      "claim_supported": "coincidencia keyword deterministica con query y policy",
+      "evidence_id": "EV-008",
+      "hash": "sha256:8ccf4aa78e03afc466a6fb2936e4cccf95be68dd0ded7992d67c39bd44025376",
+      "path": "01_Constitucion_y_Especificacion_Fabrica.md",
+      "source_id": "SRC-DOC-001",
+      "trust": "trusted"
+    },
+    {
+      "chunk_id": "SRC-DOC-001.chunk.008",
+      "claim_supported": "coincidencia keyword deterministica con query y policy",
+      "evidence_id": "EV-009",
+      "hash": "sha256:1501b0f173220178b0021b73fb2c424f8d36f4bcbfbd8f701790f7210af6676e",
+      "path": "01_Constitucion_y_Especificacion_Fabrica.md",
+      "source_id": "SRC-DOC-001",
+      "trust": "trusted"
+    },
+    {
+      "chunk_id": "SRC-DOC-001.chunk.012",
+      "claim_supported": "coincidencia keyword deterministica con query y policy",
+      "evidence_id": "EV-010",
+      "hash": "sha256:995a9ba361aadba6b4a9d9ee88cb7a340d39e4bb7cf39b4e342a1743d8f74591",
+      "path": "01_Constitucion_y_Especificacion_Fabrica.md",
+      "source_id": "SRC-DOC-001",
+      "trust": "trusted"
+    }
+  ]
+}

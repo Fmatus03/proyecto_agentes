@@ -1,0 +1,8 @@
+{
+  "coverage_model": "requirements_risk_contracts",
+  "exceptions": [],
+  "line_coverage_percent": "not_measured_without_plugin",
+  "requirements_covered_percent": 100,
+  "risks_covered_percent": 100,
+  "status": "complete"
+}

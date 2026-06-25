@@ -1,0 +1,138 @@
+{
+  "results": [
+    {
+      "agent_id": "agent.spec_detallada",
+      "status": "complete",
+      "validation": "complete"
+    },
+    {
+      "agent_id": "agent.spec_detallada",
+      "status": "complete",
+      "validation": "complete"
+    },
+    {
+      "agent_id": "agent.qa_checklist",
+      "status": "complete",
+      "validation": "complete"
+    },
+    {
+      "agent_id": "agent.context_rag",
+      "status": "complete",
+      "validation": "complete"
+    },
+    {
+      "agent_id": "agent.ocr_ui_analyst",
+      "status": "complete",
+      "validation": "complete"
+    },
+    {
+      "agent_id": "agent.architect_plan",
+      "status": "complete",
+      "validation": "complete"
+    },
+    {
+      "agent_id": "agent.ui_web_modern",
+      "status": "complete",
+      "validation": "complete"
+    },
+    {
+      "agent_id": "agent.api_security_docs",
+      "status": "complete",
+      "validation": "complete"
+    },
+    {
+      "agent_id": "agent.security_policy",
+      "status": "complete",
+      "validation": "complete"
+    },
+    {
+      "agent_id": "agent.qa_checklist",
+      "status": "complete",
+      "validation": "complete"
+    },
+    {
+      "agent_id": "agent.architect_plan",
+      "status": "complete",
+      "validation": "complete"
+    },
+    {
+      "agent_id": "agent.tests_coverage",
+      "status": "complete",
+      "validation": "complete"
+    },
+    {
+      "agent_id": "agent.doc_tecnica_detalle",
+      "status": "complete",
+      "validation": "complete"
+    },
+    {
+      "agent_id": "agent.qa_checklist",
+      "status": "complete",
+      "validation": "complete"
+    },
+    {
+      "agent_id": "agent.security_policy",
+      "status": "complete",
+      "validation": "complete"
+    },
+    {
+      "agent_id": "agent.implementacion_doc_code",
+      "status": "complete",
+      "validation": "complete"
+    },
+    {
+      "agent_id": "agent.tests_coverage",
+      "status": "complete",
+      "validation": "complete"
+    },
+    {
+      "agent_id": "agent.security_policy",
+      "status": "complete",
+      "validation": "complete"
+    },
+    {
+      "agent_id": "agent.qa_checklist",
+      "status": "complete",
+      "validation": "complete"
+    },
+    {
+      "agent_id": "agent.token_billing",
+      "status": "complete",
+      "validation": "complete"
+    },
+    {
+      "agent_id": "agent.observability_sre",
+      "status": "complete",
+      "validation": "complete"
+    },
+    {
+      "agent_id": "agent.doc_tecnica_detalle",
+      "status": "complete",
+      "validation": "complete"
+    },
+    {
+      "agent_id": "agent.token_billing",
+      "status": "complete",
+      "validation": "complete"
+    },
+    {
+      "agent_id": "agent.qa_checklist",
+      "status": "complete",
+      "validation": "complete"
+    }
+  ],
+  "run_id": "RUN-6ae1cda94717",
+  "status": "complete",
+  "validators": [
+    "SchemaValidator",
+    "EvidenceValidator",
+    "PolicyValidator",
+    "SafetyValidator",
+    "ConsistencyValidator",
+    "CoverageValidator",
+    "BudgetValidator",
+    "ToolOutputValidator",
+    "FinalFormatValidator"
+  ],
+  "workflow_version": "sdd-extended-14phases.v1"
+}

@@ -1,0 +1,152 @@
+{
+  "skill.chunk_and_hash": {
+    "cache_key": "corpus_hash",
+    "gates": [
+      "evidence"
+    ],
+    "purpose": "Chunking deterministico con hash.",
+    "skill_id": "skill.chunk_and_hash",
+    "tool_id": "tool.files.read",
+    "type": "retrieval"
+  },
+  "skill.compact_context": {
+    "cache_key": "context_pack_hash",
+    "gates": [
+      "budget"
+    ],
+    "purpose": "Compactar contexto con evidencia.",
+    "skill_id": "skill.compact_context",
+    "tool_id": null,
+    "type": "compute"
+  },
+  "skill.generate_openapi": {
+    "cache_key": "spec_hash",
+    "gates": [
+      "contract"
+    ],
+    "purpose": "Generar contrato OpenAPI.",
+    "skill_id": "skill.generate_openapi",
+    "tool_id": "tool.api.openapi.validate",
+    "type": "compute"
+  },
+  "skill.normalize_work_order": {
+    "cache_key": "input_hash",
+    "gates": [
+      "schema"
+    ],
+    "purpose": "Normalizar brief a WorkOrder.",
+    "skill_id": "skill.normalize_work_order",
+    "tool_id": null,
+    "type": "compute"
+  },
+  "skill.ocr_screen": {
+    "cache_key": "image_hash",
+    "gates": [
+      "safety"
+    ],
+    "purpose": "Analizar imagen autorizada.",
+    "skill_id": "skill.ocr_screen",
+    "tool_id": "tool.ocr.screen",
+    "type": "retrieval"
+  },
+  "skill.plan_tests": {
+    "cache_key": "spec_hash+tasks_hash",
+    "gates": [
+      "coverage"
+    ],
+    "purpose": "Crear matriz de pruebas por riesgo.",
+    "skill_id": "skill.plan_tests",
+    "tool_id": null,
+    "type": "test"
+  },
+  "skill.propose_memory": {
+    "cache_key": "evidence_hash",
+    "gates": [
+      "memory"
+    ],
+    "purpose": "Proponer memoria gobernada.",
+    "skill_id": "skill.propose_memory",
+    "tool_id": "tool.memory.propose",
+    "type": "observe"
+  },
+  "skill.record_billing": {
+    "cache_key": "run_id",
+    "gates": [
+      "budget"
+    ],
+    "purpose": "Consolidar ledger.",
+    "skill_id": "skill.record_billing",
+    "tool_id": "tool.obs.billing",
+    "type": "observe"
+  },
+  "skill.retrieve_context": {
+    "cache_key": "query_hash+corpus_hash",
+    "gates": [
+      "context"
+    ],
+    "purpose": "Recuperacion con threshold, rerank fijo y dedupe.",
+    "skill_id": "skill.retrieve_context",
+    "tool_id": "tool.index.query",
+    "type": "retrieval"
+  },
+  "skill.run_e2e_tests": {
+    "cache_key": "commit+suite+env",
+    "gates": [
+      "tests"
+    ],
+    "purpose": "Ejecutar E2E UI.",
+    "skill_id": "skill.run_e2e_tests",
+    "tool_id": "tool.test.playwright",
+    "type": "test"
+  },
+  "skill.run_unit_tests": {
+    "cache_key": "commit+suite+env",
+    "gates": [
+      "tests"
+    ],
+    "purpose": "Ejecutar unit tests sandbox.",
+    "skill_id": "skill.run_unit_tests",
+    "tool_id": "tool.test.pytest",
+    "type": "test"
+  },
+  "skill.scan_security": {
+    "cache_key": "artifact_hash",
+    "gates": [
+      "security"
+    ],
+    "purpose": "Escaneo SAST/secrets/deps.",
+    "skill_id": "skill.scan_security",
+    "tool_id": "tool.security.gitleaks",
+    "type": "validate"
+  },
+  "skill.validate_evidence": {
+    "cache_key": "artifact_hash",
+    "gates": [
+      "evidence"
+    ],
+    "purpose": "Validar claims criticos.",
+    "skill_id": "skill.validate_evidence",
+    "tool_id": "tool.validator.schema",
+    "type": "validate"
+  },
+  "skill.validate_schema": {
+    "cache_key": "artifact_hash",
+    "gates": [
+      "schema"
+    ],
+    "purpose": "Validar JSON schema estricto.",
+    "skill_id": "skill.validate_schema",
+    "tool_id": "tool.validator.schema",
+    "type": "validate"
+  },
+  "skill.write_docs": {
+    "cache_key": "doc_plan_hash",
+    "gates": [
+      "final_format"
+    ],
+    "purpose": "Escribir docs markdown.",
+    "skill_id": "skill.write_docs",
+    "tool_id": "tool.files.write_dry_run",
+    "type": "file_write_dry_run"
+  }
+}

@@ -1,0 +1,461 @@
+{
+  "tool.api.openapi.validate": {
+    "available_command": null,
+    "cost_class": "free",
+    "idempotent": true,
+    "max_retries": 1,
+    "name": "OpenAPI Validate",
+    "permissions": [
+      "read_artifact"
+    ],
+    "purpose": "Validar OpenAPI.",
+    "sandbox_required": true,
+    "side_effects": "compute",
+    "timeout_ms": 30000,
+    "tool_id": "tool.api.openapi.validate",
+    "type": "validator",
+    "version": "1.0.0"
+  },
+  "tool.cache.get": {
+    "available_command": null,
+    "cost_class": "free",
+    "idempotent": true,
+    "max_retries": 0,
+    "name": "Cache Get",
+    "permissions": [
+      "read_cache"
+    ],
+    "purpose": "Leer cache no sensible.",
+    "sandbox_required": true,
+    "side_effects": "read",
+    "timeout_ms": 2000,
+    "tool_id": "tool.cache.get",
+    "type": "retrieval",
+    "version": "1.0.0"
+  },
+  "tool.cache.set": {
+    "available_command": null,
+    "cost_class": "free",
+    "idempotent": true,
+    "max_retries": 0,
+    "name": "Cache Set",
+    "permissions": [
+      "write_cache"
+    ],
+    "purpose": "Guardar cache no sensible.",
+    "sandbox_required": true,
+    "side_effects": "write",
+    "timeout_ms": 2000,
+    "tool_id": "tool.cache.set",
+    "type": "compute",
+    "version": "1.0.0"
+  },
+  "tool.coverage.report": {
+    "available_command": null,
+    "cost_class": "free",
+    "idempotent": true,
+    "max_retries": 0,
+    "name": "Coverage Report",
+    "permissions": [
+      "read_reports"
+    ],
+    "purpose": "Consolidar cobertura.",
+    "sandbox_required": true,
+    "side_effects": "read",
+    "timeout_ms": 10000,
+    "tool_id": "tool.coverage.report",
+    "type": "validator",
+    "version": "1.0.0"
+  },
+  "tool.db.metadata.readonly": {
+    "available_command": null,
+    "cost_class": "medium",
+    "idempotent": true,
+    "max_retries": 1,
+    "name": "DB Metadata Readonly",
+    "permissions": [
+      "read_db_metadata"
+    ],
+    "purpose": "Leer metadata BD autorizada en read-only.",
+    "sandbox_required": true,
+    "side_effects": "read",
+    "timeout_ms": 30000,
+    "tool_id": "tool.db.metadata.readonly",
+    "type": "retrieval",
+    "version": "1.0.0"
+  },
+  "tool.files.read": {
+    "available_command": null,
+    "cost_class": "free",
+    "idempotent": true,
+    "max_retries": 1,
+    "name": "Files Read",
+    "permissions": [
+      "read"
+    ],
+    "purpose": "Leer archivos autorizados.",
+    "sandbox_required": true,
+    "side_effects": "read",
+    "timeout_ms": 10000,
+    "tool_id": "tool.files.read",
+    "type": "file_read",
+    "version": "1.0.0"
+  },
+  "tool.files.write_dry_run": {
+    "available_command": null,
+    "cost_class": "free",
+    "idempotent": true,
+    "max_retries": 1,
+    "name": "Files Write Dry Run",
+    "permissions": [
+      "write_sandbox"
+    ],
+    "purpose": "Materializar artefactos dentro del proyecto sandbox.",
+    "sandbox_required": true,
+    "side_effects": "write_preview",
+    "timeout_ms": 10000,
+    "tool_id": "tool.files.write_dry_run",
+    "type": "file_write_dry_run",
+    "version": "1.0.0"
+  },
+  "tool.index.query": {
+    "available_command": null,
+    "cost_class": "free",
+    "idempotent": true,
+    "max_retries": 1,
+    "name": "Index Query",
+    "permissions": [
+      "read_index"
+    ],
+    "purpose": "Consultar indice documental versionado.",
+    "sandbox_required": true,
+    "side_effects": "read",
+    "timeout_ms": 15000,
+    "tool_id": "tool.index.query",
+    "type": "retrieval",
+    "version": "1.0.0"
+  },
+  "tool.lint.eslint": {
+    "available_command": "npm",
+    "cost_class": "free",
+    "idempotent": true,
+    "max_retries": 1,
+    "name": "ESLint",
+    "permissions": [
+      "run_lint"
+    ],
+    "purpose": "Lint frontend.",
+    "sandbox_required": true,
+    "side_effects": "compute",
+    "timeout_ms": 60000,
+    "tool_id": "tool.lint.eslint",
+    "type": "validator",
+    "version": "1.0.0"
+  },
+  "tool.lint.ruff": {
+    "available_command": null,
+    "cost_class": "free",
+    "idempotent": true,
+    "max_retries": 1,
+    "name": "Ruff",
+    "permissions": [
+      "run_lint"
+    ],
+    "purpose": "Lint backend.",
+    "sandbox_required": true,
+    "side_effects": "compute",
+    "timeout_ms": 60000,
+    "tool_id": "tool.lint.ruff",
+    "type": "validator",
+    "version": "1.0.0"
+  },
+  "tool.memory.propose": {
+    "available_command": null,
+    "cost_class": "free",
+    "idempotent": true,
+    "max_retries": 0,
+    "name": "Memory Propose",
+    "permissions": [
+      "memory_propose"
+    ],
+    "purpose": "Crear propuesta de memoria.",
+    "sandbox_required": true,
+    "side_effects": "write_preview",
+    "timeout_ms": 10000,
+    "tool_id": "tool.memory.propose",
+    "type": "observability",
+    "version": "1.0.0"
+  },
+  "tool.obs.billing": {
+    "available_command": null,
+    "cost_class": "free",
+    "idempotent": true,
+    "max_retries": 0,
+    "name": "Billing",
+    "permissions": [
+      "read_logs"
+    ],
+    "purpose": "Consolidar billing.",
+    "sandbox_required": true,
+    "side_effects": "read",
+    "timeout_ms": 10000,
+    "tool_id": "tool.obs.billing",
+    "type": "observability",
+    "version": "1.0.0"
+  },
+  "tool.ocr.screen": {
+    "available_command": null,
+    "cost_class": "medium",
+    "idempotent": true,
+    "max_retries": 1,
+    "name": "OCR Screen",
+    "permissions": [
+      "read_image"
+    ],
+    "purpose": "OCR/estructura de pantallas autorizadas.",
+    "sandbox_required": true,
+    "side_effects": "read",
+    "timeout_ms": 30000,
+    "tool_id": "tool.ocr.screen",
+    "type": "retrieval",
+    "version": "1.0.0"
+  },
+  "tool.repo.ast.parse": {
+    "available_command": null,
+    "cost_class": "free",
+    "idempotent": true,
+    "max_retries": 1,
+    "name": "AST Parse",
+    "permissions": [
+      "read_repo"
+    ],
+    "purpose": "Parsear simbolos de repos autorizados.",
+    "sandbox_required": true,
+    "side_effects": "read",
+    "timeout_ms": 20000,
+    "tool_id": "tool.repo.ast.parse",
+    "type": "retrieval",
+    "version": "1.0.0"
+  },
+  "tool.security.gitleaks": {
+    "available_command": "gitleaks",
+    "cost_class": "free",
+    "idempotent": true,
+    "max_retries": 1,
+    "name": "Gitleaks",
+    "permissions": [
+      "run_security_scan"
+    ],
+    "purpose": "Secret scan.",
+    "sandbox_required": true,
+    "side_effects": "compute",
+    "timeout_ms": 60000,
+    "tool_id": "tool.security.gitleaks",
+    "type": "validator",
+    "version": "1.0.0"
+  },
+  "tool.security.npm_audit": {
+    "available_command": "npm",
+    "cost_class": "free",
+    "idempotent": true,
+    "max_retries": 1,
+    "name": "npm audit",
+    "permissions": [
+      "run_security_scan"
+    ],
+    "purpose": "Node dependency audit.",
+    "sandbox_required": true,
+    "side_effects": "compute",
+    "timeout_ms": 120000,
+    "tool_id": "tool.security.npm_audit",
+    "type": "validator",
+    "version": "1.0.0"
+  },
+  "tool.security.pip_audit": {
+    "available_command": null,
+    "cost_class": "free",
+    "idempotent": true,
+    "max_retries": 1,
+    "name": "pip-audit",
+    "permissions": [
+      "run_security_scan"
+    ],
+    "purpose": "Python dependency audit.",
+    "sandbox_required": true,
+    "side_effects": "compute",
+    "timeout_ms": 120000,
+    "tool_id": "tool.security.pip_audit",
+    "type": "validator",
+    "version": "1.0.0"
+  },
+  "tool.security.semgrep": {
+    "available_command": "semgrep",
+    "cost_class": "free",
+    "idempotent": true,
+    "max_retries": 1,
+    "name": "Semgrep",
+    "permissions": [
+      "run_security_scan"
+    ],
+    "purpose": "SAST.",
+    "sandbox_required": true,
+    "side_effects": "compute",
+    "timeout_ms": 120000,
+    "tool_id": "tool.security.semgrep",
+    "type": "validator",
+    "version": "1.0.0"
+  },
+  "tool.security.trivy": {
+    "available_command": "trivy",
+    "cost_class": "free",
+    "idempotent": true,
+    "max_retries": 1,
+    "name": "Trivy",
+    "permissions": [
+      "run_security_scan"
+    ],
+    "purpose": "Container/dependency scan.",
+    "sandbox_required": true,
+    "side_effects": "compute",
+    "timeout_ms": 180000,
+    "tool_id": "tool.security.trivy",
+    "type": "validator",
+    "version": "1.0.0"
+  },
+  "tool.sql.parse": {
+    "available_command": null,
+    "cost_class": "free",
+    "idempotent": true,
+    "max_retries": 1,
+    "name": "SQL Parse",
+    "permissions": [
+      "read_sql"
+    ],
+    "purpose": "Parsear SQL estatico autorizado.",
+    "sandbox_required": true,
+    "side_effects": "read",
+    "timeout_ms": 20000,
+    "tool_id": "tool.sql.parse",
+    "type": "retrieval",
+    "version": "1.0.0"
+  },
+  "tool.test.playwright": {
+    "available_command": null,
+    "cost_class": "free",
+    "idempotent": true,
+    "max_retries": 1,
+    "name": "Playwright",
+    "permissions": [
+      "run_tests"
+    ],
+    "purpose": "Ejecutar UI/E2E sandbox.",
+    "sandbox_required": true,
+    "side_effects": "compute",
+    "timeout_ms": 180000,
+    "tool_id": "tool.test.playwright",
+    "type": "test",
+    "version": "1.0.0"
+  },
+  "tool.test.pytest": {
+    "available_command": "pytest",
+    "cost_class": "free",
+    "idempotent": true,
+    "max_retries": 1,
+    "name": "Pytest",
+    "permissions": [
+      "run_tests"
+    ],
+    "purpose": "Ejecutar tests Python sandbox.",
+    "sandbox_required": true,
+    "side_effects": "compute",
+    "timeout_ms": 120000,
+    "tool_id": "tool.test.pytest",
+    "type": "test",
+    "version": "1.0.0"
+  },
+  "tool.test.vitest": {
+    "available_command": "npm",
+    "cost_class": "free",
+    "idempotent": true,
+    "max_retries": 1,
+    "name": "Vitest",
+    "permissions": [
+      "run_tests"
+    ],
+    "purpose": "Ejecutar tests frontend sandbox.",
+    "sandbox_required": true,
+    "side_effects": "compute",
+    "timeout_ms": 120000,
+    "tool_id": "tool.test.vitest",
+    "type": "test",
+    "version": "1.0.0"
+  },
+  "tool.typecheck.pyright": {
+    "available_command": null,
+    "cost_class": "free",
+    "idempotent": true,
+    "max_retries": 1,
+    "name": "Pyright",
+    "permissions": [
+      "run_typecheck"
+    ],
+    "purpose": "Typecheck Python.",
+    "sandbox_required": true,
+    "side_effects": "compute",
+    "timeout_ms": 120000,
+    "tool_id": "tool.typecheck.pyright",
+    "type": "validator",
+    "version": "1.0.0"
+  },
+  "tool.typecheck.tsc": {
+    "available_command": "npm",
+    "cost_class": "free",
+    "idempotent": true,
+    "max_retries": 1,
+    "name": "TSC",
+    "permissions": [
+      "run_typecheck"
+    ],
+    "purpose": "Typecheck TypeScript.",
+    "sandbox_required": true,
+    "side_effects": "compute",
+    "timeout_ms": 120000,
+    "tool_id": "tool.typecheck.tsc",
+    "type": "validator",
+    "version": "1.0.0"
+  },
+  "tool.validator.final_format": {
+    "available_command": null,
+    "cost_class": "free",
+    "idempotent": true,
+    "max_retries": 0,
+    "name": "Final Format Validator",
+    "permissions": [
+      "compute"
+    ],
+    "purpose": "Validar cierre formal.",
+    "sandbox_required": true,
+    "side_effects": "compute",
+    "timeout_ms": 10000,
+    "tool_id": "tool.validator.final_format",
+    "type": "validator",
+    "version": "1.0.0"
+  },
+  "tool.validator.schema": {
+    "available_command": null,
+    "cost_class": "free",
+    "idempotent": true,
+    "max_retries": 0,
+    "name": "Schema Validator",
+    "permissions": [
+      "compute"
+    ],
+    "purpose": "Validar schemas estrictos.",
+    "sandbox_required": true,
+    "side_effects": "compute",
+    "timeout_ms": 10000,
+    "tool_id": "tool.validator.schema",
+    "type": "validator",
+    "version": "1.0.0"
+  }
+}

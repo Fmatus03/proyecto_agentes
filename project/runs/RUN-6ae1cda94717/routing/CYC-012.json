@@ -1,0 +1,27 @@
+{
+  "budget": {
+    "cached_tokens": 0,
+    "estimated_cost_usd": 0,
+    "max_cost_usd": 0,
+    "max_input_tokens": 120000,
+    "max_latency_ms": 300000,
+    "max_output_tokens": 60000,
+    "max_tool_calls": 200,
+    "reasoning_tokens": 0,
+    "tool_calls": 40,
+    "used_input_tokens": 3111,
+    "used_output_tokens": 1011
+  },
+  "cycle_id": "CYC-012",
+  "phase": "tasks",
+  "reason": "ruta SDD controlada; orquestador solo invoca harness.run_agent",
+  "required_gates": [
+    "tests",
+    "coverage",
+    "consistency",
+    "budget"
+  ],
+  "run_id": "RUN-6ae1cda94717",
+  "selected_agent_id": "agent.tests_coverage",
+  "status": "complete"
+}

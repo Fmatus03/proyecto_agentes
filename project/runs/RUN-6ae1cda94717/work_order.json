@@ -1,0 +1,67 @@
+{
+  "approval_required_for": [
+    "write",
+    "deploy",
+    "merge",
+    "external_api",
+    "secrets",
+    "infra",
+    "cost_increase",
+    "data_access",
+    "production_data",
+    "db_write"
+  ],
+  "constraints": {
+    "dry_run": true,
+    "max_cost_usd": 0,
+    "max_latency_ms": 300000,
+    "max_retries": 1,
+    "no_web": true,
+    "risk": "high",
+    "sandbox_required": true
+  },
+  "expected_outputs": [
+    "project-ready",
+    "agents-registered",
+    "qa-report",
+    "traceability",
+    "final-report"
+  ],
+  "inputs": [
+    {
+      "authorized": true,
+      "source_id": "SRC-BRIEF-USER",
+      "trust": "trusted",
+      "type": "brief"
+    },
+    {
+      "authorized": true,
+      "path": ".",
+      "source_id": "SRC-DOCS-LOCAL",
+      "trust": "trusted",
+      "type": "doc"
+    }
+  ],
+  "objective": "Preparar fabrica ARNES SDD completa, deterministica y lista para recibir el primer proyecto independiente",
+  "scope": {
+    "exclude": [
+      "deploy",
+      "merge",
+      "db_write",
+      "secret_read",
+      "external_write"
+    ],
+    "include": [
+      "fabrica",
+      "arnes",
+      "agentes",
+      "skills",
+      "tools",
+      "qa",
+      "logs",
+      "project"
+    ]
+  },
+  "work_order_id": "WO-a173a25702f7",
+  "work_type": "factory_bootstrap"
+}

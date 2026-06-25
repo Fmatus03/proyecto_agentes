@@ -1,0 +1,21 @@
+# Component Audit
+
+| componente del plan | archivos creados | responsabilidades implementadas | pruebas asociadas | registro en harness |
+|---|---|---|---|---|
+| Specification Parser | `factory/brewmaster/specification_parser.py` | Genera `spec-index.json` canonico desde la especificacion BrewMaster. | `tests/test_brewmaster_specification_parser.py` | `factory/registry.py`, `factory/agents.py`, `factory/orchestrator.py` |
+| Specification Coverage Engine | `factory/brewmaster/specification_coverage_engine.py` | Construye matriz global de cobertura con pendientes bloqueantes. | `tests/test_brewmaster_coverage_engine.py` | `factory/registry.py`, `factory/agents.py`, `factory/orchestrator.py` |
+| Hito Completion Gate | `factory/brewmaster/hito_completion_gate.py` | Bloquea avance por hito si faltan UC, RN, V, endpoints o pantallas. | `tests/test_brewmaster_hito_gate.py` | `factory/registry.py`, `factory/agents.py`, `factory/orchestrator.py` |
+| Synthetic Business Data Generator | `factory/brewmaster/synthetic_business_data_generator.py` | Genera proveedores, clientes, recetas, lotes, compras, ventas y Kardex. | `tests/test_brewmaster_generators.py` | `agent.synthetic_data_generator` |
+| Use Case E2E Generator | `factory/brewmaster/usecase_e2e_generator.py` | Genera pruebas Playwright por caso de uso derivadas de UC, RN y V. | `tests/test_brewmaster_generators.py` | `agent.usecase_e2e_generator` |
+| Canonical Domain Validator | `factory/brewmaster/canonical_domain_validator.py` | Compara entidades y atributos J.5 contra `models/` y `schemas/`. | `tests/test_brewmaster_validators.py` | `tool.brewmaster.validators` |
+| Golden Dataset Validator | `factory/brewmaster/golden_dataset_validator.py` | Ejecuta casos controlados de `golden-dataset.yaml` y compara esperado vs real. | `tests/test_brewmaster_validators.py` | `tool.brewmaster.validators` |
+| Architecture Drift Validator v2 | `factory/brewmaster/architecture_drift_validator_v2.py` | Audita dependencias prohibidas Router/Service/Repository/ORM. | `tests/test_brewmaster_architecture_transaction.py` | `tool.brewmaster.validators` |
+| Transaction Boundary Validator v2 | `factory/brewmaster/transaction_boundary_validator_v2.py` | Verifica transacciones, commits, rollback y escrituras posteriores. | `tests/test_brewmaster_architecture_transaction.py` | `tool.brewmaster.validators` |
+| Business Scenario Validator | `factory/brewmaster/business_scenario_validator.py` | Genera `scenario-report.json` con escenarios Compra, Produccion, Venta e Integral. | `tests/test_brewmaster_validators.py` | `tool.brewmaster.validators` |
+| Requirement Completeness Validator | `factory/brewmaster/requirement_completeness_validator.py` | Exige evidencia implementada, probada y funcional para RN, V y UC. | `tests/test_brewmaster_validators.py` | `tool.brewmaster.validators` |
+| Endpoint Coverage Validator | `factory/brewmaster/endpoint_coverage_validator.py` | Valida endpoint especificado, implementado, documentado y testeado. | `tests/test_brewmaster_validators.py` | `tool.brewmaster.validators` |
+| Screen Functional Coverage Validator | `factory/brewmaster/screen_functional_coverage_validator.py` | Valida trazas Pantalla -> UC -> Endpoint -> Playwright. | `tests/test_brewmaster_validators.py` | `tool.brewmaster.validators` |
+| Cross Module Consistency Validator | `factory/brewmaster/cross_module_consistency_validator.py` | Verifica flujos cruzados compra/inventario, produccion, ventas/finanzas y dashboard. | `tests/test_brewmaster_validators.py` | `tool.brewmaster.validators` |
+| RBAC y Audit Coverage Validator | `factory/brewmaster/rbac_audit_coverage_validator.py` | Exige pruebas de rechazo por permiso y auditoria para mutaciones. | `tests/test_brewmaster_validators.py` | `tool.brewmaster.validators` |
+| Release Readiness Gate v2 | `factory/brewmaster/release_readiness_gate_v2.py` | Bloquea release si hay cobertura pendiente, validadores faltantes o fallidos. | `tests/test_brewmaster_release_gate.py` | `tool.brewmaster.validators` |
+| BrewMaster Coordinator | `factory/brewmaster/brewmaster.py` | Coordina la adaptacion sin absorber responsabilidades de parser, motores, gates o validadores. | `tests/test_factory.py` | `agent.brewmaster_adaptation` |

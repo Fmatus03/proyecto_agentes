@@ -1,0 +1,47 @@
+{
+  "approval": {
+    "approval_id": "not_required_for_sandbox",
+    "approved": false,
+    "required": false
+  },
+  "budget": {
+    "cached_tokens": 0,
+    "estimated_cost_usd": 0,
+    "max_cost_usd": 0,
+    "max_input_tokens": 120000,
+    "max_latency_ms": 300000,
+    "max_output_tokens": 60000,
+    "max_tool_calls": 200,
+    "reasoning_tokens": 0,
+    "tool_calls": 89,
+    "used_input_tokens": 8977,
+    "used_output_tokens": 2061
+  },
+  "cycle_id": "CYC-024",
+  "evidence": [],
+  "input_hash": "sha256:1e262286e44702a159a955928a49eaa5f410f8a8ae4ae21bd8f7add1d782cc57",
+  "issues": [],
+  "memory_version": "memory-governance.v1",
+  "outputs": {
+    "agent.api_security_docs": "sha256:062781035675d1d9a2b6894518bbfec38a39ffafcc25b50e5e679ac85672ecfd",
+    "agent.architect_plan": "sha256:dbd34857ca7c9045a921d46e22d29757ddcc693c48886b00dce8c6c220b3fec6",
+    "agent.context_rag": "sha256:8998274c66dc4b0f9b209db1ef3f2e9cae2d3b404b842e5272f1e6d7571a0dc8",
+    "agent.doc_tecnica_detalle": "sha256:e0abcda75f73cba0d4c651a19a4134a5a4eb699a7f5626d547caa81f733d9d9b",
+    "agent.implementacion_doc_code": "sha256:0fb54d5a8a891056f6805e101d7a731098e1fa328b8107dc97639de99ef1b5e4",
+    "agent.observability_sre": "sha256:fb78628a3038d5c4b9dcf8953cbf9c672b39f2bca03c754d20581b7334e00e10",
+    "agent.ocr_ui_analyst": "sha256:bf0c1f91ca0b3731c3827444ed05e5eabb02fb0224351e9132f7fbcc186e6d08",
+    "agent.qa_checklist": "sha256:9fb6b612fc60fee148cc87a6b0f796b0f8670d51a0c1b8f2b24390319faf737c",
+    "agent.security_policy": "sha256:35c9afabd9ee89a6a8aa515b0e2c0e353cbe01d74c4df3fbade8ea001cd8dd57",
+    "agent.spec_detallada": "sha256:145c53d0ac7c6061e02d96317d32f0606ac841b9ed18362eeb34c3fa1c3242aa",
+    "agent.tests_coverage": "sha256:d258f52def60b0c5972e9369a2a544e2f8f6f90647af4f12266fa53593304f6f",
+    "agent.token_billing": "sha256:559a917b712680ebb3d78d6f6d983305a5537c8e24628455f9cacf395d75034a",
+    "agent.ui_web_modern": "sha256:27ad0203b86aeed9129102867c737aa229385945c4eefe2eaa209a86e82d406c"
+  },
+  "phase": "close",
+  "policy_version": "arnes-policy.v1",
+  "run_id": "RUN-6ae1cda94717",
+  "spec_hash": "sha256:TBD-before-spec",
+  "status": "complete",
+  "task_id": "TASK-CLOSE-024",
+  "tool_registry_version": "tool-registry.v1"
+}

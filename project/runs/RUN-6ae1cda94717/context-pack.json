@@ -1,0 +1,363 @@
+{
+  "chunks": [
+    {
+      "chunk_id": "SRC-DOC-004.chunk.008",
+      "content": "6. State machine y schemas\n\n### 6.1 `CycleState`\n\n```json\n{\n  \"run_id\": \"RUN-TBD\",\n  \"cycle_id\": \"CYC-TBD\",\n  \"task_id\": \"TASK-TBD\",\n  \"phase\": \"intake|specify|clarify|checklist|context|plan|plan_validation|tasks|analyze|implement|validate|observe|close\",\n  \"status\": \"complete|needs_user_input|not_answerable|error\",\n  \"input_hash\": \"sha256:TBD\",\n  \"spec_hash\": \"sha256:TBD\",\n  \"policy_version\": \"arnes-policy.v1\",\n  \"tool_registry_version\": \"tool-registry.v1\",\n  \"memory_version\": \"memory-governance.v1\",\n  \"evidence\": [],\n  \"outputs\": {},\n  \"issues\": [],\n  \"budget\": {\n    \"max_input_tokens\": 0,\n    \"max_output_tokens\": 0,\n    \"max_cost_usd\": 0,\n    \"max_latency_ms\": 0,\n    \"used_input_tokens\": 0,\n    \"used_output_tokens\": 0,\n    \"cached_tokens\": 0,\n    \"reasoning_tokens\": 0,\n    \"estimated_cost_usd\": 0\n  },\n  \"approval\": {\n    \"required\": false,\n    \"approval_id\": \"TBD\",\n    \"approved\": false\n  }\n}\n```\n\n### 6.2 `RoutingDecision`\n\n```json\n{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"title\": \"RoutingDecision\",\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"required\": [\"run_id\", \"cycle_id\", \"phase\", \"selected_agent_id\", \"reason\", \"required_gates\", \"budget\", \"status\"],\n  \"properties\": {\n    \"run_id\": {\"type\": \"string\"},\n    \"cycle_id\": {\"type\": \"string\"},\n    \"phase\": {\"type\": \"string\"},\n    \"selected_agent_id\": {\"type\": \"string\"},\n    \"reason\": {\"type\": \"string\"},\n    \"required_gates\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}},\n    \"budget\": {\"type\": \"object\"},\n    \"status\": {\"type\": \"string\", \"enum\": [\"complete\", \"needs_user_input\", \"not_answerable\", \"error\"]}\n  }\n}\n```",
+      "hash": "sha256:9a5a7c2481aef008c39b8cffcfc1195cda2c7db6b566f2310e132c70755a8c30",
+      "path": "04_Orquestador_Ciclo_12_Pasos_Operabilidad.md",
+      "reason_included": "coincidencia keyword deterministica con query y policy",
+      "rerank_score": 0.667667,
+      "score": 0.666667,
+      "source_id": "SRC-DOC-004"
+    },
+    {
+      "chunk_id": "SRC-DOC-002.chunk.007",
+      "content": "5. Flujo Spec-Driven controlado\n\n| fase | entrada | agente/skill | tool | gate | salida |\n|---|---|---|---|---|---|\n| Constitution | brief + policy | `agent.spec_detallada` | `tool.files.read` | `constitution` | `constitution.md` |\n| Specify | objetivo + alcance | `agent.spec_detallada` | `tool.rag.query` | `spec` | `spec.md` |\n| Clarify | ambig\u00fcedades | `agent.spec_detallada` | none/read-only | `clarification` | `clarifications.md` |\n| Checklist | spec | `agent.qa_checklist` | `tool.validator.schema` | `checklist` | `checklist.md` |\n| Context Grounding | fuentes autorizadas | `agent.context_rag` | `tool.index.query`, `tool.cache.get/set` | `context`, `evidence` | `context-pack.json` |\n| Plan | spec + context | `agent.architect_plan` | `tool.files.read` | `plan` | `plan.md` |\n| Plan Validation | plan | `agent.qa_checklist` + `agent.security_policy` | validators/scanners | `plan_validation`, `security` | `plan-validation.json` |\n| Tasks | plan | `agent.architect_plan` | templates | `tasks` | `tasks.md` |\n| Analyze | spec + plan + tasks | `agent.qa_checklist` | validators | `analyze` | `analyze-report.json` |\n| Implement | approved tasks | `agent.implementacion_doc_code` | allowlist sandbox | `sandbox`, `policy` | diff dry-run |\n| Validate | diff | `agent.tests_coverage`, `agent.qa_checklist`, `agent.security_policy` | tests/scans | `tests`, `coverage`, `security` | reports |\n| PR/Deploy | reports | Orchestrator + human approval | CI/CD | `human_approval` | PR/deploy plan dry-run |\n| Observe | run/deploy reports | `agent.token_billing` + observability skills | metrics/logs | `observability`, `budget` | run report |\n| Close | evidence + reports | Orchestrator | none | `final_format` | `final-report.json`, handoff |\n\nRegla: si el encargo es solo dise\u00f1o, `Implement`, `PR/Deploy` y side effects quedan `not_applicable` dentro de artefactos internos, no se ejecutan.",
+      "hash": "sha256:2b27f9093839b0f4380177673317b3c99678ab5487fef9ed5621fd676123ba66",
+      "path": "02_Arquitectura_Stack_y_Flujos_SDD.md",
+      "reason_included": "coincidencia keyword deterministica con query y policy",
+      "rerank_score": 0.666667,
+      "score": 0.666667,
+      "source_id": "SRC-DOC-002"
+    },
+    {
+      "chunk_id": "SRC-DOC-004.chunk.006",
+      "content": "4. OrchestratorGraph\n\n```text\nintake\n  \u2192 specify\n  \u2192 clarify\n  \u2192 checklist\n  \u2192 context\n  \u2192 plan\n  \u2192 plan_validation\n  \u2192 tasks\n  \u2192 analyze\n  \u2192 implement\n  \u2192 validate\n  \u2192 observe\n  \u2192 close\n```\n\nTransiciones bloqueantes:\n\n| desde | condici\u00f3n | hacia |\n|---|---|---|\n| `intake` | WorkOrder inv\u00e1lido o falta objetivo cr\u00edtico. | `needs_user_input` |\n| `specify` | RF/RNF cr\u00edticos ambiguos. | `clarify` |\n| `clarify` | Preguntas cr\u00edticas sin respuesta. | `needs_user_input` |\n| `context` | Evidencia insuficiente para decisi\u00f3n cr\u00edtica. | `not_answerable` |\n| `plan_validation` | Plan viola stack/policy/seguridad. | `error` o `needs_user_input` si requiere aprobaci\u00f3n. |\n| `tasks` | Task no mapea requisito/riesgo. | `error` |\n| `implement` | Side effects sin aprobaci\u00f3n. | `needs_user_input` |\n| `validate` | Tests/cobertura/seguridad fallan. | `error` o nueva task de fix si reparable. |\n| `observe` | Logs o billing incompletos. | `error` |\n| `close` | Formato final inv\u00e1lido. | `error` |",
+      "hash": "sha256:82ea1d07158a2b0131f179b305a39d117630e8e6b66cff69497a5adcf01ef8bd",
+      "path": "04_Orquestador_Ciclo_12_Pasos_Operabilidad.md",
+      "reason_included": "coincidencia keyword deterministica con query y policy",
+      "rerank_score": 0.666667,
+      "score": 0.666667,
+      "source_id": "SRC-DOC-004"
+    },
+    {
+      "chunk_id": "SRC-DOC-004.chunk.007",
+      "content": "5. Routing de agentes\n\n| fase | agente primario | agentes secundarios | criterio de selecci\u00f3n |\n|---|---|---|---|\n| `specify` | `agent.spec_detallada` | `agent.context_rag` si hay fuentes. | Objetivo, RF/RNF, alcance. |\n| `clarify` | `agent.spec_detallada` | none. | Ambig\u00fcedad cr\u00edtica. |\n| `checklist` | `agent.qa_checklist` | `agent.security_policy`. | Completitud y riesgos. |\n| `context` | `agent.context_rag` | `agent.ocr_ui_analyst` si hay im\u00e1genes. | Evidencia m\u00ednima. |\n| `plan` | `agent.architect_plan` | `agent.ui_web_modern`, `agent.api_security_docs`. | Plan t\u00e9cnico/UI/API. |\n| `tasks` | `agent.architect_plan` | `agent.tests_coverage`, `agent.doc_tecnica_detalle`. | Tareas at\u00f3micas. |\n| `analyze` | `agent.qa_checklist` | `agent.security_policy`. | Consistencia spec-plan-tasks. |\n| `implement` | `agent.implementacion_doc_code` | `agent.doc_tecnica_detalle`. | Diff sandbox. |\n| `validate` | `agent.tests_coverage` | `agent.qa_checklist`, `agent.security_policy`. | Tests, coverage, seguridad. |\n| `observe` | `agent.token_billing` | Observability skills. | Logs, costos, latencia. |\n| `close` | Orquestador | `agent.doc_tecnica_detalle`, `agent.qa_checklist`. | Handoff y formato final. |\n\nRegla de optimizaci\u00f3n: si una fase puede cerrarse con un validador determin\u00edstico o cache hit v\u00e1lido, no se invoca agente.",
+      "hash": "sha256:e19c36c7e6e4e101e543fae47f3602821e7c955cd0cec4be6f0732ef187e6fce",
+      "path": "04_Orquestador_Ciclo_12_Pasos_Operabilidad.md",
+      "reason_included": "coincidencia keyword deterministica con query y policy",
+      "rerank_score": 0.666667,
+      "score": 0.666667,
+      "source_id": "SRC-DOC-004"
+    },
+    {
+      "chunk_id": "SRC-DOC-005.chunk.009",
+      "content": "7. Contrato `CycleState`\n\n```json\n{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"title\": \"CycleState\",\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"required\": [\n    \"run_id\",\n    \"cycle_id\",\n    \"task_id\",\n    \"phase\",\n    \"status\",\n    \"input_hash\",\n    \"spec_hash\",\n    \"policy_version\",\n    \"tool_registry_version\",\n    \"memory_version\",\n    \"evidence\",\n    \"outputs\",\n    \"issues\",\n    \"budget\",\n    \"approval\"\n  ],\n  \"properties\": {\n    \"run_id\": { \"type\": \"string\" },\n    \"cycle_id\": { \"type\": \"string\" },\n    \"task_id\": { \"type\": \"string\" },\n    \"phase\": {\n      \"type\": \"string\",\n      \"enum\": [\"intake\", \"specify\", \"clarify\", \"checklist\", \"context\", \"plan\", \"plan_validation\", \"tasks\", \"analyze\", \"implement\", \"validate\", \"observe\", \"close\"]\n    },\n    \"status\": { \"type\": \"string\", \"enum\": [\"complete\", \"needs_user_input\", \"not_answerable\", \"error\"] },\n    \"input_hash\": { \"type\": \"string\" },\n    \"spec_hash\": { \"type\": \"string\" },\n    \"policy_version\": { \"type\": \"string\" },\n    \"tool_registry_version\": { \"type\": \"string\" },\n    \"memory_version\": { \"type\": \"string\" },\n    \"evidence\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },\n    \"outputs\": { \"type\": \"object\" },\n    \"issues\": { \"type\": \"array\" },\n    \"budget\": {\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"required\": [\"max_input_tokens\", \"max_output_tokens\", \"max_cost_usd\", \"max_latency_ms\", \"used_input_tokens\", \"used_output_tokens\", \"cached_tokens\", \"reasoning_tokens\", \"estimated_cost_usd\"],\n      \"properties\": {\n        \"max_input_tokens\": { \"type\": \"integer\" },\n        \"max_output_tokens\": { \"type\": \"integer\" },\n        \"max_cost_usd\": { \"type\": \"number\" },\n        \"max_latency_ms\": { \"type\": \"integer\" },\n        \"used_input_tokens\": { \"type\": \"integer\" },\n        \"used_output_tokens\": { \"type\": \"integer\" },\n        \"cached_tokens\": { \"type\": \"integer\" },\n        \"reasoning_tokens\": { \"type\": \"integer\" },\n        \"estimated_cost_usd\": { \"type\": \"number\" }\n      }\n    },\n    \"approval\": {\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"required\": [\"required\", \"approved\", \"approval_id\"],\n      \"properties\": {\n        \"required\": { \"type\": \"boolean\" },\n        \"approved\": { \"type\": \"boolean\" },\n        \"approval_id\": { \"type\": \"string\" }\n      }\n    }\n  }\n}\n```",
+      "hash": "sha256:b29b6c06e6a0249dc7a3987c0d9c27a1e28cfd6a370b27830f5f3ffd3b67d7d6",
+      "path": "arnes.md",
+      "reason_included": "coincidencia keyword deterministica con query y policy",
+      "rerank_score": 0.666667,
+      "score": 0.666667,
+      "source_id": "SRC-DOC-005"
+    },
+    {
+      "chunk_id": "SRC-DOC-007.chunk.006",
+      "content": "6. Flujo SDD completo\n\n6.1. \u2610 La f\u00e1brica implementa el flujo:\n\n```text\nConstitution \u2192 Specify \u2192 Clarify \u2192 Checklist \u2192 Context Grounding \u2192 Plan \u2192 Plan Validation \u2192 Tasks \u2192 Analyze \u2192 Implement \u2192 Validate \u2192 PR/Deploy \u2192 Observe \u2192 Close\n```\n\nEvidencia requerida: run real con todas las fases aplicables. \n\n6.2. \u2610 No se puede implementar sin `spec.md` aprobado.\nEvidencia requerida: test de bloqueo.\n\n6.3. \u2610 No se puede planificar si existen ambig\u00fcedades cr\u00edticas abiertas.\nEvidencia requerida: `clarifications.md`, gate `clarification_closed`.\n\n6.4. \u2610 No se puede crear `plan.md` sin `context-pack.md/json` cuando hay decisiones t\u00e9cnicas o de negocio no triviales.\nEvidencia requerida: test de bloqueo.\n\n6.5. \u2610 No se puede generar `tasks.md` si el plan no pas\u00f3 validaci\u00f3n de policy, seguridad y stack.\nEvidencia requerida: `plan_validation_report`.\n\n6.6. \u2610 No se puede implementar si `analyze-report.md` detecta contradicciones cr\u00edticas.\nEvidencia requerida: gate `analyze_passed`.\n\n6.7. \u2610 Toda tarea es at\u00f3mica, tiene ID \u00fanico, requisito asociado, archivo/m\u00f3dulo objetivo, criterio de finalizaci\u00f3n, tipo y validaci\u00f3n.\nEvidencia requerida: `tasks.md`. \n\n6.8. \u2610 Toda tarea se vincula a `REQ-*`, `NFR-*`, `DOC-*`, `SEC-*` u `OPS-*`.\nEvidencia requerida: matriz de trazabilidad.\n\n6.9. \u2610 Ning\u00fan archivo modificado queda sin `task_id`.\nEvidencia requerida: CI `validate-no-code-without-task`.\n\n6.10. \u2610 Todo requisito funcional tiene test o validaci\u00f3n expl\u00edcita.\nEvidencia requerida: `traceability-matrix.md`, `test-report`.\n\n6.11. \u2610 Los cambios fuera de alcance crean finding y vuelven a spec/plan/analyze; no se improvisan.\nEvidencia requerida: `DECISIONS.md`, `TASKS.md`, `analyze-report`.\n\n6.12. \u2610 El cierre produce reporte final, ledger cerrado, trazabilidad y aprendizaje propuesto.\nEvidencia requerida: `final-report`, `billing-ledger.json`, `Aprendizaje.md`.\n\n---",
+      "hash": "sha256:0478133886eaafc57aea64ad4f4c5213ea240f33d0f1303fdfc71bfc2da1bb07",
+      "path": "CHECKLIST.md",
+      "reason_included": "coincidencia keyword deterministica con query y policy",
+      "rerank_score": 0.666667,
+      "score": 0.666667,
+      "source_id": "SRC-DOC-007"
+    },
+    {
+      "chunk_id": "SRC-DOC-007.chunk.007",
+      "content": "7. Artefactos m\u00ednimos por ejecuci\u00f3n\n\n7.1. \u2610 Existe `work_order.json`.\nGate: `work_order_schema`.\n\n7.2. \u2610 Existe `constitution.md` o referencia versionada a constituci\u00f3n vigente.\nGate: `constitution_checked`.\n\n7.3. \u2610 Existe `spec.md`.\nGate: `spec_exists`.\n\n7.4. \u2610 Existe `clarifications.md`.\nGate: `ambiguity_closed`.\n\n7.5. \u2610 Existe `checklist.md`.\nGate: `checklist_passed`.\n\n7.6. \u2610 Existe `context-pack.md` y `context-pack.json`.\nGate: `context_grounded`.\n\n7.7. \u2610 Existe `plan.md`.\nGate: `plan_validated`.\n\n7.8. \u2610 Existen contratos t\u00e9cnicos cuando aplica: OpenAPI, AsyncAPI, schemas, contratos de datos/eventos.\nGate: `contracts_valid`.\n\n7.9. \u2610 Existe `tasks.md`.\nGate: `tasks_traceable`.\n\n7.10. \u2610 Existe `analyze-report.md`.\nGate: `analyze_passed`.\n\n7.11. \u2610 Existe `test-report.md` o equivalente por suite.\nGate: `tests_passed`.\n\n7.12. \u2610 Existe `coverage-report`.\nGate: `coverage`.\n\n7.13. \u2610 Existe `security-review.md`.\nGate: `security_passed`.\n\n7.14. \u2610 Existe `validation-report.json`.\nGate: `quality_gate`.\n\n7.15. \u2610 Existe `traceability-matrix.md`.\nGate: `traceability_coverage`.\n\n7.16. \u2610 Existe `final-report.md/json`.\nGate: `close_gate`.\n\n7.17. \u2610 Existe `RUN_STATE.md` para handoff humano.\nGate: `handoff_ready`.\n\n7.18. \u2610 Existe `DECISIONS.md` con decisiones, evidencia y aprobador cuando aplique.\n\n7.19. \u2610 Existe `ERRORS.md` con errores, causa, recuperaci\u00f3n y estado.\n\n7.20. \u2610 Existe `Aprendizaje.md` con propuestas aprobadas, rechazadas, expiradas y conflictos.\n\n---",
+      "hash": "sha256:cc85bc42bf67f38e0921f74d68253610326a27c0a159c38c2ab2beb2274e4b75",
+      "path": "CHECKLIST.md",
+      "reason_included": "coincidencia keyword deterministica con query y policy",
+      "rerank_score": 0.666667,
+      "score": 0.666667,
+      "source_id": "SRC-DOC-007"
+    },
+    {
+      "chunk_id": "SRC-DOC-001.chunk.003",
+      "content": "Cobertura obligatoria de conceptos ARNES/SDD\n\n| concepto | cobertura en este archivo |\n|---|---|\n| alcance | Definido o referenciado como contrato operativo. |\n| SDD | Fases y gates Spec-Driven trazables. |\n| ARNES/harness | Contenci\u00f3n por `harness.run_agent(agent_id,state)`. |\n| agentes | Responsabilidades, permisos y l\u00edmites. |\n| RAG | Evidencia por context-pack, \u00edndices y cache. |\n| memoria | MemoryGate, TTL, confianza, taint y aprobaci\u00f3n. |\n| tools | Allowlist, schemas, sandbox, timeouts y logs. |\n| gates/evals | Validaci\u00f3n reproducible y estados cerrados. |\n| logs/costos | Ledger de tokens, latencia, tool calls y costo estimado. |\n| seguridad | Read-only, dry-run, least privilege y aprobaci\u00f3n humana. |\n| handoff | Artefactos, trazabilidad y criterios de cierre. |\n| trazabilidad | Mapeo requisito \u2192 task \u2192 test \u2192 evidencia \u2192 gate. |",
+      "hash": "sha256:8ccf4aa78e03afc466a6fb2936e4cccf95be68dd0ded7992d67c39bd44025376",
+      "path": "01_Constitucion_y_Especificacion_Fabrica.md",
+      "reason_included": "coincidencia keyword deterministica con query y policy",
+      "rerank_score": 0.334333,
+      "score": 0.333333,
+      "source_id": "SRC-DOC-001"
+    },
+    {
+      "chunk_id": "SRC-DOC-001.chunk.008",
+      "content": "6. Requisitos funcionales\n\n| RF | descripci\u00f3n | prioridad | aceptaci\u00f3n | source_id |\n|---|---|---:|---|---|\n| RF-001 | Recibir entradas heterog\u00e9neas: archivos, specs, dise\u00f1os, repos, c\u00f3digo, SQL, esquemas, documentaci\u00f3n, logs, tickets, tablas, im\u00e1genes y texto. | Alta | `WorkOrder` validado y clasificado por riesgo. | `SRC-BRIEF-USER`, `SRC-ANEXO-A-ARNES` |\n| RF-002 | Ejecutar flujo Spec-Driven extendido antes de cualquier implementaci\u00f3n. | Alta | Fases Constitution\u2192Close trazadas y gates aplicados. | `SRC-ANEXO-B-SDD` |\n| RF-003 | Contener toda ejecuci\u00f3n de agentes dentro de ARNES/Harness. | Alta | Solo existe puerta `harness.run_agent(agent_id,state)`. | `SRC-ANEXO-A-ARNES` |\n| RF-004 | Operar con RAG, context-pack m\u00ednimo, score threshold, reranking fijo, dedupe, hashes y cache. | Alta | Cada claim cr\u00edtico mapea a `evidence_id`. | `SRC-ANEXO-D-RAG` |\n| RF-005 | Analizar c\u00f3digo, SQL embebido, stored procedures, triggers, esquemas, logs y reportes solo con fuentes autorizadas. | Alta | Lectura read-only; side effects bloqueados. | `SRC-BRIEF-USER` |\n| RF-006 | Dise\u00f1ar y mantener stack web moderno: Next.js, React, TypeScript, Tailwind, shadcn/ui, FastAPI, Pydantic, SQLAlchemy, Alembic, Redis, OIDC/OAuth2, Docker, CI/CD, CDN y observabilidad. | Alta | Plan t\u00e9cnico con versiones `TBD` si no hay evidencia. | `SRC-BRIEF-USER`, `SRC-BP-001` |\n| RF-007 | Generar documentaci\u00f3n t\u00e9cnica detallada y documentaci\u00f3n dentro del c\u00f3digo para mantenimiento. | Alta | Docs vinculados a spec, c\u00f3digo, APIs, tests y decisiones. | `SRC-BRIEF-USER`, `SRC-BP-001` |\n| RF-008 | Definir agentes de tests para planes y ejecuci\u00f3n con cobertura objetivo 100%. | Alta | Tests unitarios, integraci\u00f3n, contrato, E2E, seguridad y cobertura mapeados. | `SRC-BRIEF-USER`, `SRC-ANEXO-C-GATES` |\n| RF-009 | Definir agente de especificaci\u00f3n detallada. | Alta | Specs con RF/RNF, criterios de aceptaci\u00f3n y trazabilidad. | `SRC-BRIEF-USER`, `SRC-ANEXO-B-SDD` |\n| RF-010 | Definir agente de implementaci\u00f3n con documentaci\u00f3n en c\u00f3digo. | Alta | Diffs propuestos en sandbox, sin merge/deploy, con docs y tests. | `SRC-BRIEF-USER`, `SRC-ANEXO-A-ARNES` |\n| RF-011 | Definir agente OCR para an\u00e1lisis de im\u00e1genes y pantallas de ejemplo. | Media | Extrae texto/estructura UI con evidencia y marca incertidumbre. | `SRC-BRIEF-USER`, `SRC-ANEXO-D-RAG` |\n| RF-012 | Definir agentes para APIs seguras con tokens y documentaci\u00f3n ",
+      "hash": "sha256:1501b0f173220178b0021b73fb2c424f8d36f4bcbfbd8f701790f7210af6676e",
+      "path": "01_Constitucion_y_Especificacion_Fabrica.md",
+      "reason_included": "coincidencia keyword deterministica con query y policy",
+      "rerank_score": 0.334333,
+      "score": 0.333333,
+      "source_id": "SRC-DOC-001"
+    },
+    {
+      "chunk_id": "SRC-DOC-001.chunk.012",
+      "content": "10. Criterios de aceptaci\u00f3n global\n\n| AC | criterio | m\u00e9todo de validaci\u00f3n | evidencia |\n|---|---|---|---|\n| AC-001 | La f\u00e1brica opera por SDD y no implementa sin spec/plan/tasks/analyze aprobados. | `SDDFlowValidator`. | `validation-report.json` |\n| AC-002 | Todos los agentes est\u00e1n contenidos por ARNES. | `PolicyValidator` + revisi\u00f3n de `arnes.md`. | `policy_review` |\n| AC-003 | Todo output cr\u00edtico es schema-validable. | `SchemaValidator`. | `schema_id`, `output_hash` |\n| AC-004 | Claims cr\u00edticos tienen evidencia. | `EvidenceValidator`. | `evidence_register` |\n| AC-005 | Side effects quedan en dry-run y requieren aprobaci\u00f3n. | `SafetyValidator` + `human_approval`. | `approval_id` |\n| AC-006 | Testing exige cobertura objetivo 100% para c\u00f3digo nuevo/modificado. | `CoverageValidator`. | `coverage_report` |\n| AC-007 | Documentaci\u00f3n t\u00e9cnica y de c\u00f3digo se actualiza con cada cambio. | `ConsistencyValidator`. | `docs_report` |\n| AC-008 | API segura y documentada con ejemplos no sensibles. | OpenAPI validator + security tests. | `api_contract_report` |\n| AC-009 | Logs, tokens, costos y latencia quedan facturados. | `BudgetValidator` + `ObservabilityValidator`. | `billing-ledger.json` |\n| AC-010 | Handoff contiene estado, decisiones, errores, tasks, trazabilidad y pr\u00f3ximos pasos seguros. | `FinalFormatValidator`. | `final-report.json` |",
+      "hash": "sha256:995a9ba361aadba6b4a9d9ee88cb7a340d39e4bb7cf39b4e342a1743d8f74591",
+      "path": "01_Constitucion_y_Especificacion_Fabrica.md",
+      "reason_included": "coincidencia keyword deterministica con query y policy",
+      "rerank_score": 0.334333,
+      "score": 0.333333,
+      "source_id": "SRC-DOC-001"
+    }
+  ],
+  "context_pack_id": "CP-557aa66bb2d967c6",
+  "corpus_hash": "sha256:6177ac1fa0200eeb8bbd31b382a7e77376b8bdcffd32f42024ff5e8af84f98ee",
+  "created_at": "2026-06-09T13:59:08+00:00",
+  "excluded": [
+    {
+      "chunk_id": "SRC-DOC-001.chunk.000",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-001"
+    },
+    {
+      "chunk_id": "SRC-DOC-001.chunk.001",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-001"
+    },
+    {
+      "chunk_id": "SRC-DOC-001.chunk.002",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-001"
+    },
+    {
+      "chunk_id": "SRC-DOC-001.chunk.004",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-001"
+    },
+    {
+      "chunk_id": "SRC-DOC-001.chunk.005",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-001"
+    },
+    {
+      "chunk_id": "SRC-DOC-001.chunk.007",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-001"
+    },
+    {
+      "chunk_id": "SRC-DOC-001.chunk.010",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-001"
+    },
+    {
+      "chunk_id": "SRC-DOC-001.chunk.011",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-001"
+    },
+    {
+      "chunk_id": "SRC-DOC-001.chunk.014",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-001"
+    },
+    {
+      "chunk_id": "SRC-DOC-001.chunk.015",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-001"
+    },
+    {
+      "chunk_id": "SRC-DOC-002.chunk.000",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-002"
+    },
+    {
+      "chunk_id": "SRC-DOC-002.chunk.001",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-002"
+    },
+    {
+      "chunk_id": "SRC-DOC-002.chunk.002",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-002"
+    },
+    {
+      "chunk_id": "SRC-DOC-002.chunk.004",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-002"
+    },
+    {
+      "chunk_id": "SRC-DOC-002.chunk.006",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-002"
+    },
+    {
+      "chunk_id": "SRC-DOC-002.chunk.009",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-002"
+    },
+    {
+      "chunk_id": "SRC-DOC-002.chunk.010",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-002"
+    },
+    {
+      "chunk_id": "SRC-DOC-002.chunk.012",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-002"
+    },
+    {
+      "chunk_id": "SRC-DOC-003.chunk.000",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-003"
+    },
+    {
+      "chunk_id": "SRC-DOC-003.chunk.001",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-003"
+    },
+    {
+      "chunk_id": "SRC-DOC-003.chunk.002",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-003"
+    },
+    {
+      "chunk_id": "SRC-DOC-003.chunk.005",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-003"
+    },
+    {
+      "chunk_id": "SRC-DOC-003.chunk.008",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-003"
+    },
+    {
+      "chunk_id": "SRC-DOC-003.chunk.009",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-003"
+    },
+    {
+      "chunk_id": "SRC-DOC-003.chunk.010",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-003"
+    },
+    {
+      "chunk_id": "SRC-DOC-003.chunk.011",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-003"
+    },
+    {
+      "chunk_id": "SRC-DOC-003.chunk.012",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-003"
+    },
+    {
+      "chunk_id": "SRC-DOC-003.chunk.014",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-003"
+    },
+    {
+      "chunk_id": "SRC-DOC-004.chunk.000",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-004"
+    },
+    {
+      "chunk_id": "SRC-DOC-004.chunk.001",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-004"
+    },
+    {
+      "chunk_id": "SRC-DOC-004.chunk.002",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-004"
+    },
+    {
+      "chunk_id": "SRC-DOC-004.chunk.004",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-004"
+    },
+    {
+      "chunk_id": "SRC-DOC-004.chunk.005",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-004"
+    },
+    {
+      "chunk_id": "SRC-DOC-004.chunk.011",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-004"
+    },
+    {
+      "chunk_id": "SRC-DOC-004.chunk.013",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-004"
+    },
+    {
+      "chunk_id": "SRC-DOC-004.chunk.014",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-004"
+    },
+    {
+      "chunk_id": "SRC-DOC-004.chunk.015",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-004"
+    },
+    {
+      "chunk_id": "SRC-DOC-004.chunk.016",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-004"
+    },
+    {
+      "chunk_id": "SRC-DOC-004.chunk.017",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-004"
+    },
+    {
+      "chunk_id": "SRC-DOC-004.chunk.018",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-004"
+    },
+    {
+      "chunk_id": "SRC-DOC-004.chunk.019",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-004"
+    },
+    {
+      "chunk_id": "SRC-DOC-004.chunk.020",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-004"
+    },
+    {
+      "chunk_id": "SRC-DOC-004.chunk.021",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-004"
+    },
+    {
+      "chunk_id": "SRC-DOC-004.chunk.022",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-004"
+    },
+    {
+      "chunk_id": "SRC-DOC-004.chunk.023",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-004"
+    },
+    {
+      "chunk_id": "SRC-DOC-004.chunk.024",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-004"
+    },
+    {
+      "chunk_id": "SRC-DOC-004.chunk.026",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-004"
+    },
+    {
+      "chunk_id": "SRC-DOC-004.chunk.027",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-004"
+    },
+    {
+      "chunk_id": "SRC-DOC-005.chunk.000",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-005"
+    },
+    {
+      "chunk_id": "SRC-DOC-005.chunk.001",
+      "reason": "low_score",
+      "source_id": "SRC-DOC-005"
+    }
+  ],
+  "index_version": "index.v1",
+  "query_hash": "sha256:557aa66bb2d967c66742ca54a7ec4f2afd07bce361967f1678d855d6a133e802",
+  "reranker_version": "fixed-rerank-v1",
+  "score_threshold": 0.08
+}

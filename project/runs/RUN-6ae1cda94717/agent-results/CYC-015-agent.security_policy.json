@@ -1,0 +1,106 @@
+{
+  "agent_id": "agent.security_policy",
+  "budget": {
+    "cached_tokens": 0,
+    "estimated_cost_usd": 0,
+    "max_cost_usd": 0,
+    "max_input_tokens": 120000,
+    "max_latency_ms": 300000,
+    "max_output_tokens": 60000,
+    "max_tool_calls": 200,
+    "reasoning_tokens": 0,
+    "tool_calls": 57,
+    "used_input_tokens": 4745,
+    "used_output_tokens": 1339
+  },
+  "cycle_id": "CYC-015",
+  "logs": {
+    "input_hash": "sha256:5ff5909aa92cf8ebe23d726640b963eb2d5aeb4d144a21b9ff9f9f19b9c38c7f",
+    "log_id": "LOG-CYC-015-agent.security_policy",
+    "output_hash": "sha256:5f5ea7e506cbdb218a229e18b01f293124acbb343fb926b9ecbdf941bd7375d6"
+  },
+  "output": {
+    "agent_id": "agent.security_policy",
+    "artifacts": [
+      "security-review.md"
+    ],
+    "coverage": "not_applicable",
+    "critical_claims": [],
+    "evidence_refs": [
+      "EV-001",
+      "EV-002",
+      "EV-003",
+      "EV-004",
+      "EV-005",
+      "EV-006",
+      "EV-007",
+      "EV-008",
+      "EV-009",
+      "EV-010"
+    ],
+    "generated_at": "2026-06-09T13:59:08+00:00",
+    "phase": "analyze",
+    "policy_findings": []
+  },
+  "run_id": "RUN-6ae1cda94717",
+  "status": "complete",
+  "validation": {
+    "items": [
+      {
+        "code": "schema_valid",
+        "message": "CycleState valido.",
+        "status": "complete",
+        "validator": "SchemaValidator"
+      },
+      {
+        "code": "evidence_valid",
+        "message": "Evidencia suficiente o fase no critica.",
+        "status": "complete",
+        "validator": "EvidenceValidator"
+      },
+      {
+        "code": "policy_valid",
+        "message": "Policy sin bloqueos.",
+        "status": "complete",
+        "validator": "PolicyValidator"
+      },
+      {
+        "code": "safety_valid",
+        "message": "Sin secretos obvios ni acciones inseguras.",
+        "status": "complete",
+        "validator": "SafetyValidator"
+      },
+      {
+        "code": "consistency_valid",
+        "message": "Artefactos consistentes.",
+        "status": "complete",
+        "validator": "ConsistencyValidator"
+      },
+      {
+        "code": "coverage_valid",
+        "message": "Cobertura trazable o no aplica.",
+        "status": "complete",
+        "validator": "CoverageValidator"
+      },
+      {
+        "code": "budget_valid",
+        "message": "Presupuesto dentro de limite.",
+        "status": "complete",
+        "validator": "BudgetValidator"
+      },
+      {
+        "code": "tool_output_valid",
+        "message": "Outputs de tools normalizados.",
+        "status": "complete",
+        "validator": "ToolOutputValidator"
+      },
+      {
+        "code": "format_not_applicable",
+        "message": "Formato final no aplica en esta fase.",
+        "status": "complete",
+        "validator": "FinalFormatValidator"
+      }
+    ],
+    "status": "complete"
+  }
+}

@@ -1,0 +1,911 @@
+{
+  "agent.api_security_docs": {
+    "agent_id": "agent.api_security_docs",
+    "agent_name": "API Segura Docs",
+    "allowed_tools": [
+      "tool.api.openapi.validate",
+      "tool.files.write_dry_run"
+    ],
+    "budget": {
+      "max_input_tokens": 12000,
+      "max_output_tokens": 3000,
+      "max_retries": 1,
+      "max_tool_calls": 5,
+      "timeout_ms": 90000
+    },
+    "do_not_use_when": [
+      "La tarea puede resolverse con una skill deterministica.",
+      "Falta evidencia obligatoria.",
+      "Requiere permisos no concedidos."
+    ],
+    "forbidden_tools": [
+      "shell.free",
+      "secrets.read",
+      "deploy.direct",
+      "memory.write_ungated",
+      "external.write_unapproved",
+      "db.write"
+    ],
+    "gates": [
+      "security",
+      "contract",
+      "tests",
+      "evidence"
+    ],
+    "memory": {
+      "read_scopes": [
+        "factory",
+        "project"
+      ],
+      "write_allowed": false,
+      "write_requires_approval": true
+    },
+    "model_policy": {
+      "model": "GPT-5.5-or-fixed-snapshot",
+      "parallel_tool_calls": false,
+      "response_format": "strict_json_schema",
+      "seed": 12345,
+      "temperature": 0,
+      "top_p": 1
+    },
+    "owner": "factory",
+    "permissions": {
+      "deploy": false,
+      "external_api": false,
+      "read_repo": false,
+      "read_secrets": false,
+      "run_tests": false,
+      "write_files": true,
+      "write_memory": false
+    },
+    "purpose": "APIs seguras con tokens y OpenAPI.",
+    "rollback": "discard_agent_output",
+    "single_responsibility": "Generar contratos API seguros y ejemplos no sensibles.",
+    "status": "production",
+    "use_when": [
+      "plan",
+      "contracts"
+    ],
+    "version": "1.0.0"
+  },
+  "agent.architect_plan": {
+    "agent_id": "agent.architect_plan",
+    "agent_name": "Arquitectura y Plan",
+    "allowed_tools": [
+      "tool.files.read",
+      "tool.validator.schema",
+      "tool.files.write_dry_run"
+    ],
+    "budget": {
+      "max_input_tokens": 12000,
+      "max_output_tokens": 3000,
+      "max_retries": 1,
+      "max_tool_calls": 5,
+      "timeout_ms": 90000
+    },
+    "do_not_use_when": [
+      "La tarea puede resolverse con una skill deterministica.",
+      "Falta evidencia obligatoria.",
+      "Requiere permisos no concedidos."
+    ],
+    "forbidden_tools": [
+      "shell.free",
+      "secrets.read",
+      "deploy.direct",
+      "memory.write_ungated",
+      "external.write_unapproved",
+      "db.write"
+    ],
+    "gates": [
+      "plan",
+      "plan_validation",
+      "consistency"
+    ],
+    "memory": {
+      "read_scopes": [
+        "factory",
+        "project"
+      ],
+      "write_allowed": false,
+      "write_requires_approval": true
+    },
+    "model_policy": {
+      "model": "GPT-5.5-or-fixed-snapshot",
+      "parallel_tool_calls": false,
+      "response_format": "strict_json_schema",
+      "seed": 12345,
+      "temperature": 0,
+      "top_p": 1
+    },
+    "owner": "factory",
+    "permissions": {
+      "deploy": false,
+      "external_api": false,
+      "read_repo": true,
+      "read_secrets": false,
+      "run_tests": false,
+      "write_files": true,
+      "write_memory": false
+    },
+    "purpose": "Plan tecnico, contratos y tareas.",
+    "rollback": "discard_agent_output",
+    "single_responsibility": "Crear plan y tasks atomicas trazables.",
+    "status": "production",
+    "use_when": [
+      "plan",
+      "tasks"
+    ],
+    "version": "1.0.0"
+  },
+  "agent.context_rag": {
+    "agent_id": "agent.context_rag",
+    "agent_name": "Context RAG",
+    "allowed_tools": [
+      "tool.files.read",
+      "tool.index.query",
+      "tool.cache.get",
+      "tool.cache.set"
+    ],
+    "budget": {
+      "max_input_tokens": 8000,
+      "max_output_tokens": 2000,
+      "max_retries": 1,
+      "max_tool_calls": 3,
+      "timeout_ms": 45000
+    },
+    "do_not_use_when": [
+      "La tarea puede resolverse con una skill deterministica.",
+      "Falta evidencia obligatoria.",
+      "Requiere permisos no concedidos."
+    ],
+    "forbidden_tools": [
+      "shell.free",
+      "secrets.read",
+      "deploy.direct",
+      "memory.write_ungated",
+      "external.write_unapproved",
+      "db.write"
+    ],
+    "gates": [
+      "context",
+      "evidence",
+      "safety",
+      "budget"
+    ],
+    "memory": {
+      "read_scopes": [
+        "factory",
+        "project"
+      ],
+      "write_allowed": false,
+      "write_requires_approval": true
+    },
+    "model_policy": {
+      "model": "GPT-5.5-or-fixed-snapshot",
+      "parallel_tool_calls": false,
+      "response_format": "strict_json_schema",
+      "seed": 12345,
+      "temperature": 0,
+      "top_p": 1
+    },
+    "owner": "factory",
+    "permissions": {
+      "deploy": false,
+      "external_api": false,
+      "read_repo": true,
+      "read_secrets": false,
+      "run_tests": false,
+      "write_files": false,
+      "write_memory": false
+    },
+    "purpose": "Recuperar evidencia minima.",
+    "rollback": "discard_agent_output",
+    "single_responsibility": "Construir context-pack y evidence-register.",
+    "status": "production",
+    "use_when": [
+      "context"
+    ],
+    "version": "1.0.0"
+  },
+  "agent.doc_tecnica_detalle": {
+    "agent_id": "agent.doc_tecnica_detalle",
+    "agent_name": "Documentacion Tecnica Detallada",
+    "allowed_tools": [
+      "tool.files.read",
+      "tool.files.write_dry_run"
+    ],
+    "budget": {
+      "max_input_tokens": 8000,
+      "max_output_tokens": 2000,
+      "max_retries": 1,
+      "max_tool_calls": 3,
+      "timeout_ms": 45000
+    },
+    "do_not_use_when": [
+      "La tarea puede resolverse con una skill deterministica.",
+      "Falta evidencia obligatoria.",
+      "Requiere permisos no concedidos."
+    ],
+    "forbidden_tools": [
+      "shell.free",
+      "secrets.read",
+      "deploy.direct",
+      "memory.write_ungated",
+      "external.write_unapproved",
+      "db.write"
+    ],
+    "gates": [
+      "schema",
+      "evidence",
+      "consistency",
+      "final_format"
+    ],
+    "memory": {
+      "read_scopes": [
+        "factory",
+        "project"
+      ],
+      "write_allowed": false,
+      "write_requires_approval": true
+    },
+    "model_policy": {
+      "model": "GPT-5.5-or-fixed-snapshot",
+      "parallel_tool_calls": false,
+      "response_format": "strict_json_schema",
+      "seed": 12345,
+      "temperature": 0,
+      "top_p": 1
+    },
+    "owner": "factory",
+    "permissions": {
+      "deploy": false,
+      "external_api": false,
+      "read_repo": true,
+      "read_secrets": false,
+      "run_tests": false,
+      "write_files": true,
+      "write_memory": false
+    },
+    "purpose": "Docs tecnicas, ADR, RUN_STATE y handoff.",
+    "rollback": "discard_agent_output",
+    "single_responsibility": "Producir documentacion con evidencia.",
+    "status": "production",
+    "use_when": [
+      "close",
+      "docs"
+    ],
+    "version": "1.0.0"
+  },
+  "agent.implementacion_doc_code": {
+    "agent_id": "agent.implementacion_doc_code",
+    "agent_name": "Implementacion Documentada",
+    "allowed_tools": [
+      "tool.files.read",
+      "tool.files.write_dry_run",
+      "tool.repo.ast.parse",
+      "tool.lint.ruff",
+      "tool.test.pytest"
+    ],
+    "budget": {
+      "max_input_tokens": 12000,
+      "max_output_tokens": 3000,
+      "max_retries": 1,
+      "max_tool_calls": 5,
+      "timeout_ms": 90000
+    },
+    "do_not_use_when": [
+      "La tarea puede resolverse con una skill deterministica.",
+      "Falta evidencia obligatoria.",
+      "Requiere permisos no concedidos."
+    ],
+    "forbidden_tools": [
+      "shell.free",
+      "secrets.read",
+      "deploy.direct",
+      "memory.write_ungated",
+      "external.write_unapproved",
+      "db.write"
+    ],
+    "gates": [
+      "sandbox",
+      "schema",
+      "tests",
+      "coverage",
+      "security",
+      "dependency",
+      "consistency"
+    ],
+    "memory": {
+      "read_scopes": [
+        "factory",
+        "project"
+      ],
+      "write_allowed": false,
+      "write_requires_approval": true
+    },
+    "model_policy": {
+      "model": "GPT-5.5-or-fixed-snapshot",
+      "parallel_tool_calls": false,
+      "response_format": "strict_json_schema",
+      "seed": 12345,
+      "temperature": 0,
+      "top_p": 1
+    },
+    "owner": "factory",
+    "permissions": {
+      "deploy": false,
+      "external_api": false,
+      "read_repo": true,
+      "read_secrets": false,
+      "run_tests": true,
+      "write_files": true,
+      "write_memory": false
+    },
+    "purpose": "Cambios de codigo con docs y tests.",
+    "rollback": "discard_agent_output",
+    "single_responsibility": "Materializar tasks aprobadas en sandbox.",
+    "status": "production",
+    "use_when": [
+      "implement"
+    ],
+    "version": "1.0.0"
+  },
+  "agent.observability_sre": {
+    "agent_id": "agent.observability_sre",
+    "agent_name": "Observabilidad SRE",
+    "allowed_tools": [
+      "tool.obs.billing",
+      "tool.files.read",
+      "tool.files.write_dry_run"
+    ],
+    "budget": {
+      "max_input_tokens": 8000,
+      "max_output_tokens": 2000,
+      "max_retries": 1,
+      "max_tool_calls": 3,
+      "timeout_ms": 45000
+    },
+    "do_not_use_when": [
+      "La tarea puede resolverse con una skill deterministica.",
+      "Falta evidencia obligatoria.",
+      "Requiere permisos no concedidos."
+    ],
+    "forbidden_tools": [
+      "shell.free",
+      "secrets.read",
+      "deploy.direct",
+      "memory.write_ungated",
+      "external.write_unapproved",
+      "db.write"
+    ],
+    "gates": [
+      "observability",
+      "budget",
+      "final_format"
+    ],
+    "memory": {
+      "read_scopes": [
+        "factory",
+        "project"
+      ],
+      "write_allowed": false,
+      "write_requires_approval": true
+    },
+    "model_policy": {
+      "model": "GPT-5.5-or-fixed-snapshot",
+      "parallel_tool_calls": false,
+      "response_format": "strict_json_schema",
+      "seed": 12345,
+      "temperature": 0,
+      "top_p": 1
+    },
+    "owner": "factory",
+    "permissions": {
+      "deploy": false,
+      "external_api": false,
+      "read_repo": true,
+      "read_secrets": false,
+      "run_tests": false,
+      "write_files": true,
+      "write_memory": false
+    },
+    "purpose": "Validar logs, metricas, SLOs y runbooks.",
+    "rollback": "discard_agent_output",
+    "single_responsibility": "Asegurar operabilidad y trazas.",
+    "status": "production",
+    "use_when": [
+      "observe",
+      "close"
+    ],
+    "version": "1.0.0"
+  },
+  "agent.ocr_ui_analyst": {
+    "agent_id": "agent.ocr_ui_analyst",
+    "agent_name": "OCR UI Analyst",
+    "allowed_tools": [
+      "tool.ocr.screen",
+      "tool.files.write_dry_run"
+    ],
+    "budget": {
+      "max_input_tokens": 8000,
+      "max_output_tokens": 2000,
+      "max_retries": 1,
+      "max_tool_calls": 3,
+      "timeout_ms": 45000
+    },
+    "do_not_use_when": [
+      "La tarea puede resolverse con una skill deterministica.",
+      "Falta evidencia obligatoria.",
+      "Requiere permisos no concedidos."
+    ],
+    "forbidden_tools": [
+      "shell.free",
+      "secrets.read",
+      "deploy.direct",
+      "memory.write_ungated",
+      "external.write_unapproved",
+      "db.write"
+    ],
+    "gates": [
+      "safety",
+      "evidence",
+      "schema"
+    ],
+    "memory": {
+      "read_scopes": [],
+      "write_allowed": false,
+      "write_requires_approval": true
+    },
+    "model_policy": {
+      "model": "GPT-5.5-or-fixed-snapshot",
+      "parallel_tool_calls": false,
+      "response_format": "strict_json_schema",
+      "seed": 12345,
+      "temperature": 0,
+      "top_p": 1
+    },
+    "owner": "factory",
+    "permissions": {
+      "deploy": false,
+      "external_api": false,
+      "read_repo": false,
+      "read_secrets": false,
+      "run_tests": false,
+      "write_files": true,
+      "write_memory": false
+    },
+    "purpose": "Analizar pantallas autorizadas.",
+    "rollback": "discard_agent_output",
+    "single_responsibility": "Extraer texto/layout sin inferir negocio.",
+    "status": "production",
+    "use_when": [
+      "context",
+      "ui"
+    ],
+    "version": "1.0.0"
+  },
+  "agent.qa_checklist": {
+    "agent_id": "agent.qa_checklist",
+    "agent_name": "QA Checklist",
+    "allowed_tools": [
+      "tool.validator.schema",
+      "tool.validator.final_format",
+      "tool.files.write_dry_run"
+    ],
+    "budget": {
+      "max_input_tokens": 8000,
+      "max_output_tokens": 2000,
+      "max_retries": 1,
+      "max_tool_calls": 3,
+      "timeout_ms": 45000
+    },
+    "do_not_use_when": [
+      "La tarea puede resolverse con una skill deterministica.",
+      "Falta evidencia obligatoria.",
+      "Requiere permisos no concedidos."
+    ],
+    "forbidden_tools": [
+      "shell.free",
+      "secrets.read",
+      "deploy.direct",
+      "memory.write_ungated",
+      "external.write_unapproved",
+      "db.write"
+    ],
+    "gates": [
+      "checklist",
+      "consistency",
+      "coverage",
+      "final_format"
+    ],
+    "memory": {
+      "read_scopes": [
+        "factory",
+        "project"
+      ],
+      "write_allowed": false,
+      "write_requires_approval": true
+    },
+    "model_policy": {
+      "model": "GPT-5.5-or-fixed-snapshot",
+      "parallel_tool_calls": false,
+      "response_format": "strict_json_schema",
+      "seed": 12345,
+      "temperature": 0,
+      "top_p": 1
+    },
+    "owner": "factory",
+    "permissions": {
+      "deploy": false,
+      "external_api": false,
+      "read_repo": false,
+      "read_secrets": false,
+      "run_tests": false,
+      "write_files": true,
+      "write_memory": false
+    },
+    "purpose": "Validar buenas practicas y cierre.",
+    "rollback": "discard_agent_output",
+    "single_responsibility": "Aprobar o bloquear por checklist.",
+    "status": "production",
+    "use_when": [
+      "checklist",
+      "analyze",
+      "validate",
+      "close"
+    ],
+    "version": "1.0.0"
+  },
+  "agent.security_policy": {
+    "agent_id": "agent.security_policy",
+    "agent_name": "Security Policy",
+    "allowed_tools": [
+      "tool.security.semgrep",
+      "tool.security.trivy",
+      "tool.security.gitleaks",
+      "tool.security.pip_audit",
+      "tool.security.npm_audit",
+      "tool.validator.schema",
+      "tool.files.write_dry_run"
+    ],
+    "budget": {
+      "max_input_tokens": 8000,
+      "max_output_tokens": 2000,
+      "max_retries": 1,
+      "max_tool_calls": 3,
+      "timeout_ms": 45000
+    },
+    "do_not_use_when": [
+      "La tarea puede resolverse con una skill deterministica.",
+      "Falta evidencia obligatoria.",
+      "Requiere permisos no concedidos."
+    ],
+    "forbidden_tools": [
+      "shell.free",
+      "secrets.read",
+      "deploy.direct",
+      "memory.write_ungated",
+      "external.write_unapproved",
+      "db.write"
+    ],
+    "gates": [
+      "security",
+      "secrets",
+      "dependency",
+      "policy"
+    ],
+    "memory": {
+      "read_scopes": [
+        "factory",
+        "project"
+      ],
+      "write_allowed": false,
+      "write_requires_approval": true
+    },
+    "model_policy": {
+      "model": "GPT-5.5-or-fixed-snapshot",
+      "parallel_tool_calls": false,
+      "response_format": "strict_json_schema",
+      "seed": 12345,
+      "temperature": 0,
+      "top_p": 1
+    },
+    "owner": "factory",
+    "permissions": {
+      "deploy": false,
+      "external_api": false,
+      "read_repo": false,
+      "read_secrets": false,
+      "run_tests": true,
+      "write_files": true,
+      "write_memory": false
+    },
+    "purpose": "Revisar policy, secretos, permisos y dependencias.",
+    "rollback": "discard_agent_output",
+    "single_responsibility": "Bloquear acciones inseguras.",
+    "status": "production",
+    "use_when": [
+      "plan_validation",
+      "analyze",
+      "validate"
+    ],
+    "version": "1.0.0"
+  },
+  "agent.spec_detallada": {
+    "agent_id": "agent.spec_detallada",
+    "agent_name": "Especificacion Detallada",
+    "allowed_tools": [
+      "tool.files.read",
+      "tool.index.query",
+      "tool.cache.get",
+      "tool.cache.set",
+      "tool.files.write_dry_run"
+    ],
+    "budget": {
+      "max_input_tokens": 8000,
+      "max_output_tokens": 2000,
+      "max_retries": 1,
+      "max_tool_calls": 3,
+      "timeout_ms": 45000
+    },
+    "do_not_use_when": [
+      "La tarea puede resolverse con una skill deterministica.",
+      "Falta evidencia obligatoria.",
+      "Requiere permisos no concedidos."
+    ],
+    "forbidden_tools": [
+      "shell.free",
+      "secrets.read",
+      "deploy.direct",
+      "memory.write_ungated",
+      "external.write_unapproved",
+      "db.write"
+    ],
+    "gates": [
+      "schema",
+      "spec",
+      "evidence",
+      "final_format"
+    ],
+    "memory": {
+      "read_scopes": [
+        "factory",
+        "project"
+      ],
+      "write_allowed": false,
+      "write_requires_approval": true
+    },
+    "model_policy": {
+      "model": "GPT-5.5-or-fixed-snapshot",
+      "parallel_tool_calls": false,
+      "response_format": "strict_json_schema",
+      "seed": 12345,
+      "temperature": 0,
+      "top_p": 1
+    },
+    "owner": "factory",
+    "permissions": {
+      "deploy": false,
+      "external_api": false,
+      "read_repo": true,
+      "read_secrets": false,
+      "run_tests": false,
+      "write_files": true,
+      "write_memory": false
+    },
+    "purpose": "Constitucion, RF/RNF, criterios y aclaraciones.",
+    "rollback": "discard_agent_output",
+    "single_responsibility": "Convertir WorkOrder en especificacion verificable.",
+    "status": "production",
+    "use_when": [
+      "specify",
+      "clarify"
+    ],
+    "version": "1.0.0"
+  },
+  "agent.tests_coverage": {
+    "agent_id": "agent.tests_coverage",
+    "agent_name": "Tests y Cobertura",
+    "allowed_tools": [
+      "tool.test.pytest",
+      "tool.test.vitest",
+      "tool.test.playwright",
+      "tool.coverage.report",
+      "tool.files.write_dry_run"
+    ],
+    "budget": {
+      "max_input_tokens": 12000,
+      "max_output_tokens": 3000,
+      "max_retries": 1,
+      "max_tool_calls": 5,
+      "timeout_ms": 90000
+    },
+    "do_not_use_when": [
+      "La tarea puede resolverse con una skill deterministica.",
+      "Falta evidencia obligatoria.",
+      "Requiere permisos no concedidos."
+    ],
+    "forbidden_tools": [
+      "shell.free",
+      "secrets.read",
+      "deploy.direct",
+      "memory.write_ungated",
+      "external.write_unapproved",
+      "db.write"
+    ],
+    "gates": [
+      "tests",
+      "coverage",
+      "consistency",
+      "budget"
+    ],
+    "memory": {
+      "read_scopes": [
+        "factory",
+        "project"
+      ],
+      "write_allowed": false,
+      "write_requires_approval": true
+    },
+    "model_policy": {
+      "model": "GPT-5.5-or-fixed-snapshot",
+      "parallel_tool_calls": false,
+      "response_format": "strict_json_schema",
+      "seed": 12345,
+      "temperature": 0,
+      "top_p": 1
+    },
+    "owner": "factory",
+    "permissions": {
+      "deploy": false,
+      "external_api": false,
+      "read_repo": false,
+      "read_secrets": false,
+      "run_tests": true,
+      "write_files": true,
+      "write_memory": false
+    },
+    "purpose": "Plan y ejecucion de pruebas.",
+    "rollback": "discard_agent_output",
+    "single_responsibility": "Cubrir requisitos, riesgos, permisos y errores.",
+    "status": "production",
+    "use_when": [
+      "validate",
+      "tasks"
+    ],
+    "version": "1.0.0"
+  },
+  "agent.token_billing": {
+    "agent_id": "agent.token_billing",
+    "agent_name": "Token Billing",
+    "allowed_tools": [
+      "tool.obs.billing",
+      "tool.files.write_dry_run"
+    ],
+    "budget": {
+      "max_input_tokens": 4000,
+      "max_output_tokens": 1200,
+      "max_retries": 1,
+      "max_tool_calls": 2,
+      "timeout_ms": 30000
+    },
+    "do_not_use_when": [
+      "La tarea puede resolverse con una skill deterministica.",
+      "Falta evidencia obligatoria.",
+      "Requiere permisos no concedidos."
+    ],
+    "forbidden_tools": [
+      "shell.free",
+      "secrets.read",
+      "deploy.direct",
+      "memory.write_ungated",
+      "external.write_unapproved",
+      "db.write"
+    ],
+    "gates": [
+      "budget",
+      "observability"
+    ],
+    "memory": {
+      "read_scopes": [],
+      "write_allowed": false,
+      "write_requires_approval": true
+    },
+    "model_policy": {
+      "model": "GPT-5.5-or-fixed-snapshot",
+      "parallel_tool_calls": false,
+      "response_format": "strict_json_schema",
+      "seed": 12345,
+      "temperature": 0,
+      "top_p": 1
+    },
+    "owner": "factory",
+    "permissions": {
+      "deploy": false,
+      "external_api": false,
+      "read_repo": false,
+      "read_secrets": false,
+      "run_tests": false,
+      "write_files": true,
+      "write_memory": false
+    },
+    "purpose": "Contabilizar tokens, tools, latencia y costos.",
+    "rollback": "discard_agent_output",
+    "single_responsibility": "Consolidar ledger auditable.",
+    "status": "production",
+    "use_when": [
+      "observe",
+      "close"
+    ],
+    "version": "1.0.0"
+  },
+  "agent.ui_web_modern": {
+    "agent_id": "agent.ui_web_modern",
+    "agent_name": "UI Web Moderna",
+    "allowed_tools": [
+      "tool.files.read",
+      "tool.ocr.screen",
+      "tool.files.write_dry_run"
+    ],
+    "budget": {
+      "max_input_tokens": 8000,
+      "max_output_tokens": 2000,
+      "max_retries": 1,
+      "max_tool_calls": 3,
+      "timeout_ms": 45000
+    },
+    "do_not_use_when": [
+      "La tarea puede resolverse con una skill deterministica.",
+      "Falta evidencia obligatoria.",
+      "Requiere permisos no concedidos."
+    ],
+    "forbidden_tools": [
+      "shell.free",
+      "secrets.read",
+      "deploy.direct",
+      "memory.write_ungated",
+      "external.write_unapproved",
+      "db.write"
+    ],
+    "gates": [
+      "accessibility",
+      "qa",
+      "evidence"
+    ],
+    "memory": {
+      "read_scopes": [
+        "factory",
+        "project"
+      ],
+      "write_allowed": false,
+      "write_requires_approval": true
+    },
+    "model_policy": {
+      "model": "GPT-5.5-or-fixed-snapshot",
+      "parallel_tool_calls": false,
+      "response_format": "strict_json_schema",
+      "seed": 12345,
+      "temperature": 0,
+      "top_p": 1
+    },
+    "owner": "factory",
+    "permissions": {
+      "deploy": false,
+      "external_api": false,
+      "read_repo": true,
+      "read_secrets": false,
+      "run_tests": false,
+      "write_files": true,
+      "write_memory": false
+    },
+    "purpose": "Diseno UI atractivo, accesible y usable.",
+    "rollback": "discard_agent_output",
+    "single_responsibility": "Aplicar buenas practicas UI web al plan.",
+    "status": "production",
+    "use_when": [
+      "plan",
+      "ui"
+    ],
+    "version": "1.0.0"
+  }
+}
